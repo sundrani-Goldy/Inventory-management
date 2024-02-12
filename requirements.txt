@@ -1,0 +1,10 @@
+django
+django-tenants
+psycopg2-binary
+djangorestframework
+django-allauth
+django-rest-auth-dj4
+django-rest-passwordreset
+drf-yasg
+django-cors-headers
+Pillow

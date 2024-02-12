@@ -1,0 +1,17 @@
+.env
+.venv
+*.log
+*.pot
+*.pyc
+.vscode/
+docker/
+__pycache__/
+*.py[cod]
+pip-log.txt
+pip-delete-this-directory.txt
+.cache/
+django.log
+media/
+env
+staticfiles/
+payload.txt
