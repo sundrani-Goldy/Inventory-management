@@ -26,16 +26,17 @@ SECRET_KEY = 'django-insecure-)9gfof0h9=%9pm-*!syg^3d*0k^*(w8=2iz=a1kty+9=0!zh$7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+# ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS=['*']
 
-CSRF_TRUSTED_ORIGINS = os.environ.get("DJANGO_TRUSTED_ORIGINS").split(" ")
+# CSRF_TRUSTED_ORIGINS = os.environ.get("DJANGO_TRUSTED_ORIGINS").split(" ")
 
-# CORS
-CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_METHODS = ('*')
-CORS_ALLOW_HEADERS = ('*')
-CORS_ORIGIN_WHITELIST = os.environ.get("CORS_ORIGIN_WHITELIST").split(" ")
+# # CORS
+# CORS_ALLOW_CREDENTIALS = True
+# CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ALLOW_METHODS = ('*')
+# CORS_ALLOW_HEADERS = ('*')
+# CORS_ORIGIN_WHITELIST = os.environ.get("CORS_ORIGIN_WHITELIST").split(" ")
 
 
 # Application definition
@@ -53,20 +54,19 @@ SHARED_APPS = [
     'tenant_app',
     'corsheaders',
 ]
+
 TENANT_APPS = [
     'main_app',
-    'django.contrib.auth',
-    'django.contrib.admin',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
     'rest_auth.registration',
-    'allauth',
-    'allauth.account',
     'drf_yasg',
 ]
 
+
 INSTALLED_APPS = SHARED_APPS + [app for app in TENANT_APPS if app not in SHARED_APPS]
+
 
 MIDDLEWARE = [
     'django_tenants.middleware.main.TenantMainMiddleware',
@@ -78,7 +78,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware',
+    # 'allauth.account.middleware.AccountMiddleware',
     'InventoryManagement.middleware.CustomTenantMiddleware',
 ]
 
@@ -203,3 +203,6 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'main_app.serializers.customregister.CustomRegisterSerializer',
+}

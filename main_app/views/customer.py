@@ -11,7 +11,7 @@ from drf_yasg import openapi
 from rest_framework.authentication import TokenAuthentication
 from django.contrib.auth.models import User
 from main_app.models import Customer
-from main_app.serializers import CustomerSerializer
+from main_app.serializers.customer import CustomerSerializer
 
 class CustomerView(viewsets.ModelViewSet):
 

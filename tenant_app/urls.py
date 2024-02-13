@@ -8,7 +8,7 @@ from django.urls import path, include, re_path
 from drf_yasg.views import get_schema_view
 from rest_framework import routers, permissions
 from drf_yasg import openapi
-
+from tenant_app.views.domain import DomainView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -21,6 +21,7 @@ schema_view = get_schema_view(
     url=os.environ.get("SWAGGER_API_URL")
 )
 router = routers.DefaultRouter()
+router.register(r'domain',DomainView,basename='domain')
 
 
 urlpatterns = [

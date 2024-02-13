@@ -8,7 +8,9 @@ from django.urls import path, include, re_path
 from drf_yasg.views import get_schema_view
 from rest_framework import routers, permissions
 from drf_yasg import openapi
-from main_app.views import CustomerView
+from main_app.views.customer import CustomerView
+from rest_auth.views import LogoutView, PasswordChangeView, PasswordResetConfirmView, PasswordResetView
+from main_app.views.customregister import CustomRegister
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -43,6 +45,13 @@ urlpatterns = [
     path("", schema_view.with_ui('swagger', cache_timeout=0)),
     path('api/', include(router.urls)),
     path("admin/", admin.site.urls),
+    path('rest-auth/', include('rest_auth.urls')),
+    path('rest-auth/registration/', CustomRegister.as_view(), name='rest_register'),
+    path('rest-auth/password/reset/', PasswordResetView.as_view(), name='password_reset'),
+    path('rest-auth/password/reset/confirm/<uidb64>/<token>/', PasswordResetConfirmView.as_view(),
+         name='password_reset_confirm'),
+    path('rest-auth/password/change/', PasswordChangeView.as_view(), name='password_change'),
+    path('rest-auth/logout/', LogoutView.as_view(), name='logout'),
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
