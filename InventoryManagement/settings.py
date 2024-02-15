@@ -57,10 +57,14 @@ SHARED_APPS = [
 
 TENANT_APPS = [
     'main_app',
+    'django.contrib.auth',
+    'django.contrib.admin',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
     'rest_auth.registration',
+    'allauth',
+    'allauth.account',
     'drf_yasg',
 ]
 
