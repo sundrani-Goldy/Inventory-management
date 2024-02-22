@@ -51,6 +51,7 @@ SHARED_APPS = [
 ]
 
 TENANT_APPS = [
+    'store_app',
     'master_app',
     'django.contrib.auth',
     'django.contrib.admin',
@@ -221,8 +222,6 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 
-REST_AUTH_REGISTER_SERIALIZERS = {
-    'REGISTER_SERIALIZER': 'main_app.serializers.customregister.CustomRegisterSerializer',
-}
+
 
 AUTH_USER_MODEL = 'master_app.NewUser'
