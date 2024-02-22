@@ -1,13 +1,12 @@
 from django.contrib import admin
+from master_app.models import Store, Domain, NewUser
 
-# Register your models here.
+class PublicSchemaAdmin(admin.ModelAdmin):
+    def has_module_permission(self, request):
+        if request.tenant.schema_name == 'public':
+            return True
+        return False
 
-from master_app.models import Store,Domain,NewUser
-
-admin.site.register(Store)
-admin.site.register(Domain)
-
-class Customuser(admin.ModelAdmin):
-    pass
-
-admin.site.register(Customuser,NewUser)
+admin.site.register(Store, PublicSchemaAdmin)
+admin.site.register(Domain, PublicSchemaAdmin)
+admin.site.register(NewUser)
