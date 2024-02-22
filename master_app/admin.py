@@ -6,4 +6,8 @@ from master_app.models import Store,Domain,NewUser
 
 admin.site.register(Store)
 admin.site.register(Domain)
-admin.site.register(NewUser)
+
+class Customuser(admin.ModelAdmin):
+    pass
+
+admin.site.register(Customuser,NewUser)

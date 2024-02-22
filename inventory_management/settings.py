@@ -51,8 +51,13 @@ SHARED_APPS = [
 ]
 
 TENANT_APPS = [
+    'master_app',
     'django.contrib.auth',
     'django.contrib.admin',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
