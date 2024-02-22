@@ -107,6 +107,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'InventoryManagement.wsgi.application'
 
 
+AUTH_USER_MODEL = 'main_app.NewUser'
+
+
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
