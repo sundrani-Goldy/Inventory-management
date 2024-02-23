@@ -18,10 +18,10 @@ class OtherDetail(models.Model):
 class Warehouse(models.Model):
     fk_user = models.ForeignKey(NewUser,verbose_name='Warehouse User',on_delete=models.CASCADE)
     fk_tag = models.ManyToManyField(Tag,null=True,blank=True)
-    fk_other_detail = models.ForeignKey(OtherDetail,verbose_name='Other Details', on_delete=models.CASCADE)
+    fk_other_detail = models.ManyToManyField(OtherDetail,verbose_name='Other Details')
     name = models.CharField(max_length=255)
     address = models.TextField()
-    conatact = models.CharField(max_length=15)
+    contact = models.CharField(max_length=15)
     email = models.EmailField()
     gst_num = models.CharField(max_length=100)
     total_capacity=models.IntegerField(default=0)
@@ -32,20 +32,20 @@ class Warehouse(models.Model):
     
     class Meta:
         db_table = 'warehouse'
-        verbose_name_plural = 'warehouse'
+        verbose_name_plural = 'warehouses'
 
 
 
 class WarehouseInventory(models.Model):
     fk_product = models.ForeignKey(Product,verbose_name='Warehouse Inventory Product',on_delete=models.CASCADE)
     fk_warehouse = models.ForeignKey(Warehouse,verbose_name='Warehouse',on_delete=models.CASCADE)
-    updated_by = models.ForeignKey(NewUser,verbose_name='Updated by user',on_delete=models.CASCADE)
+    updated_by = models.ForeignKey(NewUser,verbose_name='Updated by user',on_delete=models.DO_NOTHING)
     fk_tag = models.ManyToManyField(Tag,verbose_name='Tag',null=True,blank=True)
     available_quantity = models.IntegerField(default=0)
     allotted_quantity = models.IntegerField(default=0)
     total_quantity = models.IntegerField(default=0)
     sold_quantity=models.IntegerField(default=0)
-    product_total_valuation = models.IntegerField(default=0)
+    product_total_valuation = models.BigIntegerField(default=0)
     on_hand= models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField()
