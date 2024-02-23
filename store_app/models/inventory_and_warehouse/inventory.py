@@ -1,7 +1,9 @@
 from django.db import models
 from store_app.models import *
 from master_app.models import NewUser
-
+from store_app.models.product import Product
+from store_app.models.tag import Tag
+from store_app.models.inventory_and_warehouse.warehouse import Warehouse
 
 
 class Inventory(models.Model):

@@ -28,7 +28,7 @@ class Discount(models.Model):
         verbose_name_plural = 'discounts'
 
 
-class  OtherTax(mdoels.Model):
+class  OtherTax(models.Model):
     name = models.CharField(max_length=100)
     amount = models.DecimalField(max_digits=3, decimal_places=2)
 

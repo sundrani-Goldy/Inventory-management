@@ -1,6 +1,9 @@
 from django.db import models
 from store_app.models import *
 from master_app.models import NewUser
+from store_app.models.tag import Tag
+from store_app.models.product import Product
+
 
 class OtherDetail(models.Model):
     name = models.CharField(max_length=255)
