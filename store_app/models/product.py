@@ -26,14 +26,19 @@ class Product(models.Model):
     class Meta:
         db_table = 'products'
         verbose_name_plural = 'products'
-def product_image_upload_path(instance, filename,request):
-    # Access store name associated with the product
+
+
+
+def product_image_upload_path(instance, filename):
+    # Access the schema name associated with the current database connection
     store_name = connection.schema_name
     # Return the dynamic upload path
-    return f'image/{store_name}/image/{filename}'
+    return f'{store_name}/{filename}'
 
 class ProductImage(models.Model):
     image = models.FileField(upload_to=product_image_upload_path)
     fk_tag = models.ManyToManyField(Tag)
     fk_product = models.ForeignKey(Product, verbose_name='Product', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.fk_product.name
