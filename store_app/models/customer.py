@@ -5,7 +5,7 @@ from django.db import models
 
 class Customer(models.Model):
     name = models.CharField(max_length=100)
-    mobile_number = models.BigIntegerField()
+    mobile_number = models.CharField(max_length=15)
     email = models.EmailField(null=True,blank=True)
     company_name = models.CharField(max_length=200,null=True,blank=True)
     address = models.TextField(null=True,blank=True)
