@@ -9,8 +9,9 @@ from drf_yasg.views import get_schema_view
 from rest_framework import routers, permissions
 from drf_yasg import openapi
 from store_app.views.customer import CustomerView
+from store_app.schema import *
 
-
+from graphene_django.views import GraphQLView
 schema_view = get_schema_view(
     openapi.Info(
         title="Store API",
@@ -43,6 +44,8 @@ urlpatterns = [
     path("", schema_view.with_ui('swagger', cache_timeout=0)),
     path('api/', include(router.urls)),
     path("admin/", admin.site.urls),
+    path('graphql/', GraphQLView.as_view(graphiql=True,schema=schema)),
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
