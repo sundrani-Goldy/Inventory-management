@@ -3,6 +3,7 @@ from store_app.models import *
 from master_app.models import NewUser
 
 
+
 class Inventory(models.Model):
     fk_product = models.ForeignKey(Product,verbose_name='Inventory Product',on_delete=models.CASCADE)
     available_quantity = models.IntegerField(default=0)
