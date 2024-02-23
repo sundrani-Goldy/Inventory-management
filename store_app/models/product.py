@@ -3,7 +3,8 @@ from django.db import models
 from store_app.models.product_detail import Category, Variant,ExtraDetails
 from store_app.models.tag import Tag
 from store_app.models.tax_and_discount import Tax, Discount
-
+from master_app.models import Store
+from django.db import connection
 
 class Product(models.Model):
     fk_category = models.ManyToManyField(Category , verbose_name='product category')
@@ -25,3 +26,14 @@ class Product(models.Model):
     class Meta:
         db_table = 'products'
         verbose_name_plural = 'products'
+def product_image_upload_path(instance, filename,request):
+    # Access store name associated with the product
+    store_name = connection.schema_name
+    # Return the dynamic upload path
+    return f'image/{store_name}/image/{filename}'
+
+class ProductImage(models.Model):
+    image = models.FileField(upload_to=product_image_upload_path)
+    fk_tag = models.ManyToManyField(Tag)
+    fk_product = models.ForeignKey(Product, verbose_name='Product', on_delete=models.CASCADE)
+
