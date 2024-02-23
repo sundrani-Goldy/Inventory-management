@@ -25,7 +25,7 @@ class Order(models.Model):
     fk_warehouse = models.ForeignKey(Warehouse,verbose_name="Warehouese", on_delete=models.DO_NOTHING)
     fk_customer = models.ForeignKey(Customer,verbose_name="Customer", on_delete=models.DO_NOTHING)
     fk_order_detail = models.ManyToManyField(OrderDetail,verbose_name = "product order detail" )
-    fk_tag = models.ManyToManyField(Tag, on_delete=models.DO_NOTHING , verbose_name="tag")
+    fk_tag = models.ManyToManyField(Tag , verbose_name="tag")
     sub_total = models.DecimalField(max_digits=10, decimal_places=2 , verbose_name="sub total")
     fk_discount = models.ForeignKey(Discount, on_delete=models.DO_NOTHING , null=True, blank=True , verbose_name="discount")
     fk_other_tax = models.ForeignKey(OtherTax, on_delete=models.DO_NOTHING , null=True, blank=True , verbose_name="other tax")
