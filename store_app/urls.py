@@ -8,6 +8,7 @@ from django.urls import path, include, re_path
 from drf_yasg.views import get_schema_view
 from rest_framework import routers, permissions
 from drf_yasg import openapi
+from store_app.views.customer import CustomerView
 from store_app.schema import *
 
 from graphene_django.views import GraphQLView
