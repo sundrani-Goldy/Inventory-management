@@ -1,7 +1,7 @@
 from django.db import models
 from store_app.models import *
 from store_app.models.inventory_and_warehouse.warehouse import Warehouse
-from store_app.models.tax_and_discount import Discount,OtherTax
+from store_app.models.tax_and_discount import Discount,Tax
 from store_app.models.tag import Tag
 from store_app.models.product import Product
 
@@ -28,7 +28,7 @@ class Order(models.Model):
     fk_tag = models.ManyToManyField(Tag , verbose_name="tag")
     sub_total = models.DecimalField(max_digits=10, decimal_places=2 , verbose_name="sub total")
     fk_discount = models.ForeignKey(Discount, on_delete=models.DO_NOTHING , null=True, blank=True , verbose_name="discount")
-    fk_other_tax = models.ForeignKey(OtherTax, on_delete=models.DO_NOTHING , null=True, blank=True , verbose_name="other tax")
+    fk_other_tax = models.ForeignKey(Tax, on_delete=models.DO_NOTHING , null=True, blank=True , verbose_name="other tax")
     final_price = models.DecimalField(max_digits=10, decimal_places=2 , verbose_name="final bill price")
 
     def __str__(self):
