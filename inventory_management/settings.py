@@ -48,7 +48,6 @@ SHARED_APPS = [
     'rest_auth.registration',
     'drf_yasg',
     'master_app',
-    "graphene_django",
 ]
 
 TENANT_APPS = [
@@ -67,7 +66,6 @@ TENANT_APPS = [
     'allauth',
     'allauth.account',
     'drf_yasg',
-    "graphene_django",
 ]
 
 
@@ -228,7 +226,3 @@ ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 
 
 AUTH_USER_MODEL = 'master_app.NewUser'
-
-GRAPHENE = {
-    'SCHEMA': 'store_app.schema.schema'
-}
