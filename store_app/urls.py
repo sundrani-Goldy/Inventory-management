@@ -9,6 +9,7 @@ from drf_yasg.views import get_schema_view
 from rest_framework import routers, permissions
 from drf_yasg import openapi
 from store_app.views.customer import CustomerView
+from store_app.views.product import ProductViewSet
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -22,6 +23,7 @@ schema_view = get_schema_view(
 )
 router = routers.DefaultRouter()
 router.register(r'customer',CustomerView,basename='customer')
+router.register(r'product',ProductViewSet,basename='product')
 
 urlpatterns = [
     re_path(
