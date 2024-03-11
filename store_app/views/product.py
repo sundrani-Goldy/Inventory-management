@@ -28,7 +28,7 @@ class ProductViewSet(ModelViewSet):
         product_serializer = ProductSerializer(data=request.data)
         if product_serializer.is_valid():
             product = product_serializer.save()
-            return Response(product_serializer, status=status.HTTP_201_CREATED)
+            return Response(product_serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(product_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
