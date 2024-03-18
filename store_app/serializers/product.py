@@ -35,6 +35,7 @@ class ProductSerializer(serializers.ModelSerializer):
         product.fk_category.set(fk_category)
         product.fk_variant.set(fk_variant)
         product.fk_extra_detail.set(fk_extra_detail)
+        product.fk_tag.set(fk_tag)
         product.fk_tax.set(fk_tax)
         product.discount.set(discount)
 
