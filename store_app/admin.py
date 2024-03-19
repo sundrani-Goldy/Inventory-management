@@ -9,6 +9,11 @@ from store_app.models.tax_and_discount import Discount,Tax
 from store_app.models.inventory_and_warehouse.warehouse import Warehouse,WarehouseInventory,OtherDetail
 from store_app.models.inventory_and_warehouse.inventory import Inventory,InventoryLog
 from store_app.models.tax_and_discount import Discount, Tax
+from store_app.models.product_detail import Category ,Variant ,ExtraDetails
+from store_app.models.tax_and_discount import Discount,Tax
+from store_app.models.inventory_and_warehouse.warehouse import Warehouse,WarehouseInventory,OtherDetail
+from store_app.models.inventory_and_warehouse.inventory import Inventory,InventoryLog
+
 
 
 admin.site.register(Product)
@@ -38,3 +43,10 @@ class CustomInventoryLog(admin.ModelAdmin):
 admin.site.register(InventoryLog, CustomInventoryLog)
 admin.site.register(Inventory)
 admin.site.register(VariantImage)
+admin.site.register(VariantImage)
+admin.site.register(Warehouse)
+admin.site.register(WarehouseInventory)
+admin.site.register(OtherDetail)
+admin.site.register(InventoryLog)
+admin.site.register(Inventory)
+
