@@ -21,6 +21,9 @@ from store_app.views.product import ProductViewSet
 from store_app.views.warehouse import WarehouseView,WarehouseInventoryView
 from store_app.views.inventory import InventoryView
 
+from store_app.views.order import *
+
+
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -43,6 +46,7 @@ router.register(r'product_variant', VariantViewSet, basename='product_variant')
 router.register(r'product_variant_image', VariantImageViewSet, basename='product_variant_image')
 
 
+router.register(r'order',OrderView,basename='order')
 
 urlpatterns = [
     re_path(
