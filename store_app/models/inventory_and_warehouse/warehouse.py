@@ -18,8 +18,8 @@ class OtherDetail(models.Model):
 
 class Warehouse(models.Model):
     fk_user = models.ForeignKey(NewUser,verbose_name='Warehouse User',on_delete=models.CASCADE)
-    fk_tag = models.ManyToManyField(Tag,null=True,blank=True)
-    fk_other_detail = models.ManyToManyField(OtherDetail,verbose_name='Other Details')
+    fk_tag = models.ManyToManyField(Tag)
+    fk_other_detail = models.ManyToManyField(OtherDetail,verbose_name='Other Details',null=True,blank=True)
     name = models.CharField(max_length=255)
     address = models.TextField()
     contact = models.CharField(max_length=15)
