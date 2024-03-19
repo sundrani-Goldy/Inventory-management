@@ -11,6 +11,8 @@ from drf_yasg import openapi
 from store_app.views.customer import CustomerView
 from store_app.views.inventory import *
 from store_app.views.warehouse import *
+from store_app.views.order import *
+
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -29,6 +31,7 @@ router.register(r'inventorylog',InventoryLogView,basename='inventorylog')
 router.register(r'warehouse',WarehouseView,basename='warehouse')
 router.register(r'warehouseinventory',WarehouseInventoryView,basename='warehouseinventory')
 router.register(r'otherdetails',OtherDetailView,basename='otherdetail')
+router.register(r'order',OrderView,basename='order')
 
 urlpatterns = [
     re_path(
