@@ -22,8 +22,27 @@ from store_app.models.product_detail import Tag
 class InventoryLogView(ModelViewSet):
     queryset = InventoryLog.objects.all()
     serializer_class = InventoryLogSerializer
-    # permission_classes = [IsAdminUser]
-    # authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAdminUser]
+    authentication_classes = [TokenAuthentication]
+    @swagger_auto_schema(auto_schema=None)
+    def partial_update(self, request, *args, **kwargs):
+        pass
+
+    @swagger_auto_schema(auto_schema=None)
+    def create(self, request, *args, **kwargs): 
+        pass
+
+    @swagger_auto_schema(auto_schema=None)
+    def update(self, request, *args, **kwargs):
+        pass
+
+    @swagger_auto_schema(auto_schema=None)
+    def destroy(self, request, *args, **kwargs):
+        pass
+
+    @swagger_auto_schema(auto_schema=None)
+    def retrieve(self, request, *args, **kwargs):
+        pass
 
 
 class InventoryView(ModelViewSet):
