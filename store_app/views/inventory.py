@@ -94,7 +94,11 @@ class InventoryView(ModelViewSet):
     def partial_update(self, request, *args, **kwargs):
         inventory_id = kwargs['pk']
         inventory = Inventory.objects.get(id=inventory_id)
-        inventory_log = InventoryLog.objects.get(fk_product=inventory.fk_product)
+        # Retrieve the most recent InventoryLog associated with the inventory
+        inventory_logs = InventoryLog.objects.filter(fk_product=inventory.fk_product).order_by('-created_at')
+        
+        if inventory_logs.exists():
+            inventory_log = inventory_logs.first()
 
         available_quantity = request.data.get('available_quantity', inventory.available_quantity)
         allotted_quantity = request.data.get("allotted_quantity", inventory.allotted_quantity)
@@ -160,7 +164,7 @@ class InventoryView(ModelViewSet):
                 'updated_by': request.user.id,
                 'fk_warehouse': inventory_log.fk_warehouse.id,
                 'fk_tag': fk_tag_ids,  # Assuming there could be multiple tags
-                'reason': inventory_log.reason,
+                'reason': f"{inventory.fk_product} Deleted From Inventory",
                 'available_quantity': inventory.available_quantity,
                 'allotted_quantity': inventory.allotted_quantity,
                 'total_quantity': inventory.total_quantity,
