@@ -19,7 +19,7 @@ from store_app.views.product_details import VariantViewSet, VariantImageViewSet
 
 from store_app.views.product import ProductViewSet
 from store_app.views.warehouse import WarehouseView,WarehouseInventoryView
-from store_app.views.inventory import InventoryLogView
+from store_app.views.inventory import InventoryLogView,InventoryView
 
 
 schema_view = get_schema_view(

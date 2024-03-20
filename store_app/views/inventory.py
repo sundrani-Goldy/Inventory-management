@@ -82,3 +82,10 @@ def create_or_update_inventory(instance):
     inventory.save()
 
     print("DEBUG: Inventory created or updated -", inventory)
+
+
+class InventoryView(ModelViewSet):
+    queryset = Inventory.objects.all()
+    serializer_class = InventorySerializer
+    permission_classes = [IsAdminUser]
+    authentication_classes = [TokenAuthentication]

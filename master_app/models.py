@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models.signals import post_migrate,post_save
 from django.dispatch import receiver
 from django_tenants.models import TenantMixin, DomainMixin
 from django.contrib.auth.models import AbstractUser
@@ -32,22 +31,6 @@ class Store(TenantMixin):
                 domain.domain = self.schema_name + "." + public_domain.domain
                 domain.save()
 
-
-@receiver(post_migrate, sender=Store)
-def create_warehouse(sender, instance=None, **kwargs):
-
-    from store_app.models.inventory_and_warehouse.warehouse import Warehouse
-    
-    if instance.schema_name != 'public':
-        Warehouse.objects.using(instance.schema_name).create(
-            name=instance.name,
-            address=instance.address,
-            contact=instance.contact,
-            email=instance.email,
-            gst_num=instance.gst_num,
-            total_capacity=instance.total_capacity,
-            available_capacity=instance.available_capacity
-        )
 
 class Domain(DomainMixin):
     pass
