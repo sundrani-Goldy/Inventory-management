@@ -182,3 +182,12 @@ class InventoryView(ModelViewSet):
                 return Response(inventory_log_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response("No associated InventoryLog found", status=status.HTTP_404_NOT_FOUND)
+    
+
+    @swagger_auto_schema(auto_schema=None)
+    def update(self, request, *args, **kwargs):
+        pass 
+
+    @swagger_auto_schema(auto_schema=None)
+    def retrieve(self, request, *args, **kwargs):
+        pass
