@@ -23,5 +23,12 @@ class InventoryView(viewsets.ModelViewSet):
 class InventoryLogView(viewsets.ModelViewSet):
     queryset = InventoryLog.objects.all()
     serializer_class = InventoryLogSerializer
+    # permission_classes = [IsAdminUser]
+    # authentication_classes = [TokenAuthentication]
+
+
+class InventoryView(ModelViewSet):
+    queryset = Inventory.objects.all()
+    serializer_class = InventorySerializer
     permission_classes = [IsAdminUser]
-    authentication_class = [TokenAuthentication]
+    authentication_classes = [TokenAuthentication]
