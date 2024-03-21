@@ -204,7 +204,3 @@ class InventoryView(ModelViewSet):
     @swagger_auto_schema(auto_schema=None)
     def update(self, request, *args, **kwargs):
         pass 
-
-    @swagger_auto_schema(auto_schema=None)
-    def retrieve(self, request, *args, **kwargs):
-        pass
