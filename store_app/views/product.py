@@ -10,6 +10,9 @@ from rest_framework.response import Response
 from store_app.models import Product, ProductImage
 from store_app.serializers.product import ProductSerializer, ProductImageSerializer
 
+from store_app.serializers.product import ProductSerializer
+from store_app.models.product import Product
+from store_app.views.warehouse import WarehouseInventoryView
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
@@ -69,3 +72,4 @@ class ProductImageViewSet(viewsets.ModelViewSet):
 
     def partial_update(self, request, *args, **kwargs):
         pass
+    

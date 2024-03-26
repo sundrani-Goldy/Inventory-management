@@ -5,6 +5,7 @@ from rest_framework.serializers import ListSerializer
 
 from store_app.models import Category, Variant, ExtraDetails, VariantImage, Tag
 
+from store_app.models.product_detail import *
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -64,4 +65,3 @@ class ExtraDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExtraDetails
         fields = '__all__'
-
