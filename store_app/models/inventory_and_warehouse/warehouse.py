@@ -52,8 +52,9 @@ class WarehouseInventory(models.Model):
     updated_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.fk_warehouse.name
     
+
+        return f'Product is {self.fk_product.name} & it is in  Warehouse {self.fk_warehouse.name } ' 
     class Meta:
         db_table = 'warehouse_inventory'
         verbose_name_plural = 'warehouse inventory'
