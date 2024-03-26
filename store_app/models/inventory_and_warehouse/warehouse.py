@@ -48,10 +48,10 @@ class WarehouseInventory(models.Model):
     product_total_valuation = models.BigIntegerField(default=0)
     on_hand= models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField()
+    updated_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.fk_warehouse.name
+        return f'Product is {self.fk_product.name} & it is in  Warehouse {self.fk_warehouse.name } ' 
     
     class Meta:
         db_table = 'warehouse_inventory'
