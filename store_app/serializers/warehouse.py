@@ -5,6 +5,8 @@ from store_app.serializers.product_details import *
 from store_app.serializers.product import *
 from store_app.serializers.tag import TagSerializer
 
+from store_app.models import Warehouse, WarehouseInventory, OtherDetail
+
 from master_app.models import NewUser
 from store_app.models.inventory_and_warehouse.inventory import InventoryLog
 
