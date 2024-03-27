@@ -5,13 +5,15 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include, re_path
+from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import routers, permissions
-from drf_yasg import openapi
+
 from store_app.views.customer import CustomerView
 from store_app.views.product import ProductViewSet
 from store_app.views.warehouse import WarehouseView,WarehouseInventoryView
 from store_app.views.inventory import InventoryView
+from store_app.views.product import ProductViewSet, ProductImageViewSet
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -29,6 +31,7 @@ router.register(r'product',ProductViewSet,basename='product')
 router.register(r'warehouse',WarehouseView,basename='warehouse')
 router.register(r'warehouse-inventory',WarehouseInventoryView,basename='warehouse-inventory')
 router.register(r'inventory',InventoryView,basename='inventory')
+router.register(r'product_image', ProductImageViewSet, basename='product_image')
 
 urlpatterns = [
     re_path(
@@ -53,4 +56,3 @@ urlpatterns = [
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
