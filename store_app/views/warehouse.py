@@ -76,7 +76,7 @@ class WarehouseInventoryView(ModelViewSet):
     permission_classes = [IsAdminUser]
     authentication_classes = [TokenAuthentication]
     
-    @staticmethod
+    # @staticmethod
     def create_warehouse_inventory_from_product(product_instance, user):
         warehouses = Warehouse.objects.all()
         for warehouse in warehouses:
@@ -95,7 +95,7 @@ class WarehouseInventoryView(ModelViewSet):
             for tag in product_instance.fk_tag.all():
                 warehouse_inventory.fk_tag.add(tag)
 
-    @staticmethod
+    # @staticmethod
     def create_warehouse_inventory_from_warehouse(warehouse_instance,user):
         products = Product.objects.all()
         for product in products:
@@ -139,14 +139,12 @@ class WarehouseInventoryView(ModelViewSet):
 
          # Update Inventory object
         warehouse_inventory_data = {
-            'fk_product': fk_product_id,
             'available_quantity': available_quantity,
             'allotted_quantity': allotted_quantity,
             'total_quantity': total_quantity,
             'sold_quantity': sold_quantity,
             'product_total_valuation': total_quantity * warehouse_inventory.fk_product.mrp,
             'updated_by': request.user.id,
-            'fk_warehouse': fk_warehouse_id,
             'fk_tag':fk_tag_ids
         }
         warehouse_inventory_serializer = WarehouseInventorySerializer(warehouse_inventory, data=warehouse_inventory_data, partial=True)
