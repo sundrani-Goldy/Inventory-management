@@ -15,6 +15,7 @@ class Tax(models.Model):
         db_table = 'tax'
         verbose_name_plural = 'taxes'
 
+
 class Discount(models.Model):
     DISCOUNT_OPTIONS = [
         ('percentage', 'Percentage'),

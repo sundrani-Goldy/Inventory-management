@@ -1,35 +1,66 @@
-from rest_framework.viewsets import ModelViewSet
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
-from drf_yasg.utils import swagger_auto_schema
-from drf_yasg import openapi
-from rest_framework.decorators import action
-from rest_framework.response import Response
-from rest_framework import status
-import logging
 import os
-from rest_framework.permissions import AllowAny
-from rest_framework.response import Response
-from django.http import HttpResponseServerError
+
 from rest_framework import status
-from store_app.serializers.product import ProductSerializer
-from store_app.models.product import Product
+from rest_framework import viewsets
+from rest_framework.response import Response
+
+from store_app.models import Product, ProductImage
+from store_app.serializers.product import ProductSerializer, ProductImageSerializer
 
 
-
-
-
-
-class ProductViewSet(ModelViewSet):
+class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
+    def partial_update(self, request, pk=None):
+        instance = self.get_object()
+        serializer = ProductSerializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def update(self, request, *args, **kwargs):
+        pass
+
+    def destroy(self, request, *args, **kwargs):
+        pass
+
+
+class ProductImageViewSet(viewsets.ModelViewSet):
+    queryset = ProductImage.objects.all()
+    serializer_class = ProductImageSerializer
+
     def create(self, request, *args, **kwargs):
-        product_serializer = ProductSerializer(data=request.data)
-        if product_serializer.is_valid():
-            product = product_serializer.save()
-            return Response(product_serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(product_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
+        fk_product = serializer.validated_data.get('fk_product')
+        if fk_product.productimage_set.count() >= 5:
+            return Response({"errors": "You can upload a maximum of 5 images for this product."},
+                            status=status.HTTP_400_BAD_REQUEST)
 
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+
+        file_path = instance.image.path
+
+        if os.path.exists(file_path):
+            os.remove(file_path)
+
+        instance.delete()
+
+        return Response({"message": "Image deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+    def list(self, request, *args, **kwargs):
+        pass
+
+    def update(self, request, *args, **kwargs):
+        pass
+
+    def partial_update(self, request, *args, **kwargs):
+        pass

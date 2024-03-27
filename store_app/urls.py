@@ -5,11 +5,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include, re_path
+from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import routers, permissions
-from drf_yasg import openapi
+
 from store_app.views.customer import CustomerView
-from store_app.views.product import ProductViewSet
+from store_app.views.product import ProductViewSet, ProductImageViewSet
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -22,8 +23,9 @@ schema_view = get_schema_view(
     url=os.environ.get("SWAGGER_API_URL")
 )
 router = routers.DefaultRouter()
-router.register(r'customer',CustomerView,basename='customer')
-router.register(r'product',ProductViewSet,basename='product')
+router.register(r'customer', CustomerView, basename='customer')
+router.register(r'product', ProductViewSet, basename='product')
+router.register(r'product_image', ProductImageViewSet, basename='product_image')
 
 urlpatterns = [
     re_path(
@@ -48,4 +50,3 @@ urlpatterns = [
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from store_app.models import Warehouse, WarehouseInventory, OtherDetail
 
+from store_app.models import Warehouse, WarehouseInventory, OtherDetail
 
 
 class OtherDetailSerializer(serializers.ModelSerializer):
