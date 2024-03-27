@@ -28,11 +28,11 @@ class Variant(models.Model):
         db_table = 'variant'
         verbose_name_plural = 'variants'
 
-def product_image_upload_path(instance, filename):
+def variant_image_upload_path(instance, filename):
     store_name = connection.schema_name
-    return f'{store_name}/{filename}'
+    return f'{store_name}/variant/{filename}'
 class VariantImage(models.Model):
-    fk_variant = models.ForeignKey(Variant , verbose_name='Variant', on_delete=models.DO_NOTHING)
+    fk_variant = models.ForeignKey(Variant , verbose_name='Variant', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='variant_image_upload_path')
 
     def __str__(self):
