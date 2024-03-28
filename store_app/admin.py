@@ -23,7 +23,7 @@ admin.site.register(WarehouseInventory)
 admin.site.register(OtherDetail)
 class CustomInventoryLog(admin.ModelAdmin):
     # Define the fields you want to display in the admin interface
-    list_display = ['fk_product', 'updated_by', 'display_fk_warehouse', 'display_fk_tag', 'reason', 'available_quantity', 'allotted_quantity', 'total_quantity', 'sold_quantity', 'damage_quantity', 'on_hand', 'created_at']
+    list_display = ['product_name', 'warehouse_name', 'username', 'tag_name', 'reason', 'available_quantity','adjusted_qty', 'allotted_quantity', 'total_quantity', 'sold_quantity', 'damage_quantity', 'on_hand', 'created_at']
 
     def display_fk_warehouse(self, obj):
         return obj.fk_warehouse.name  # Assuming there's a 'name' field in the Warehouse model

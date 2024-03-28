@@ -47,6 +47,7 @@ class WarehouseInventory(models.Model):
     sold_quantity=models.IntegerField(default=0)
     product_total_valuation = models.BigIntegerField(default=0)
     on_hand= models.IntegerField(default=0)
+    damage_quantity = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 

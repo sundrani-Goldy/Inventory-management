@@ -18,12 +18,10 @@ from store_app.models.inventory_and_warehouse.warehouse import Warehouse
 from store_app.models.product_detail import Tag
 from store_app.serializers.inventory import InventorySerializer,InventoryLogSerializer
 from store_app.models.inventory_and_warehouse.inventory import Inventory,InventoryLog
-from rest_framework.exceptions import ValidationError
 from django.db.models.signals import post_save
-from django.dispatch import receiver
-from django.db import transaction
-
-class WarehouseView(viewsets.ModelViewSet):
+from store_app.views.inventory import create_inventory_log
+class WarehouseView(ModelViewSet):
+    serializer_class = WarehouseSerializer
     queryset = Warehouse.objects.all()
     serializer_class = WarehouseSerializer
     permission_classes = [IsAdminUser]
@@ -67,23 +65,20 @@ class WarehouseInventoryView(viewsets.ModelViewSet):
         pass
 
 
-        
 
-    
 class WarehouseInventoryView(ModelViewSet):
     serializer_class = WarehouseInventorySerializer
     queryset = WarehouseInventory.objects.all()
     permission_classes = [IsAdminUser]
     authentication_classes = [TokenAuthentication]
     
-    # @staticmethod
     def create_warehouse_inventory_from_product(product_instance, user):
         warehouses = Warehouse.objects.all()
         for warehouse in warehouses:
             warehouse_inventory = WarehouseInventory.objects.create(
                 fk_product=product_instance,
                 fk_warehouse=warehouse,
-                updated_by=user,  # Pass the user object here
+                updated_by=user,  
                 available_quantity=0,
                 allotted_quantity=0,
                 total_quantity=0,
@@ -95,14 +90,13 @@ class WarehouseInventoryView(ModelViewSet):
             for tag in product_instance.fk_tag.all():
                 warehouse_inventory.fk_tag.add(tag)
 
-    # @staticmethod
     def create_warehouse_inventory_from_warehouse(warehouse_instance,user):
         products = Product.objects.all()
         for product in products:
             warehouse_inventory=WarehouseInventory.objects.create(
                 fk_product=product,
                 fk_warehouse=warehouse_instance,
-                updated_by=user,  # Assuming the user who created the warehouse is updating
+                updated_by=user,  
                 available_quantity=0,
                 allotted_quantity=0,
                 total_quantity=0,
@@ -115,7 +109,35 @@ class WarehouseInventoryView(ModelViewSet):
     
 
 
-    
+    def partial_update(self, request, *args, **kwargs):
+        warehouse_inventory_id = kwargs['pk']
+        warehouse_inventory = WarehouseInventory.objects.get(id=warehouse_inventory_id)
+        reason = request.data.get('reason')
+
+        if not reason:
+            return Response('Reason is Required', status=status.HTTP_400_BAD_REQUEST)
+
+        fk_tag_d = request.data.get("fk_tag", [tag.id for tag in warehouse_inventory.fk_tag.all()]) 
+        print(fk_tag_d, 'inside partial update before setting')
+        old_quantity = warehouse_inventory.available_quantity
+        warehouse_inventory.available_quantity = request.data.get('available_quantity', warehouse_inventory.available_quantity)
+        warehouse_inventory.allotted_quantity = request.data.get('allotted_quantity', warehouse_inventory.allotted_quantity)
+        warehouse_inventory.total_quantity = request.data.get('total_quantity', warehouse_inventory.total_quantity)
+        warehouse_inventory.sold_quantity = request.data.get('sold_quantity', warehouse_inventory.sold_quantity)
+        warehouse_inventory.damage_quantity = request.data.get('damage_quantity', warehouse_inventory.damage_quantity)
+        warehouse_inventory.fk_tag.set(fk_tag_d)
+        warehouse_inventory.product_total_valuation = warehouse_inventory.fk_product.mrp * warehouse_inventory.available_quantity
+        warehouse_inventory.on_hand = request.data.get('available_quantity', warehouse_inventory.available_quantity) + request.data.get('damage_quantity', warehouse_inventory.damage_quantity)
+        serializer = WarehouseInventorySerializer(warehouse_inventory, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            a = serializer.save()
+            # print(fk_tag_d, 'inside partial update before saving')
+            # Signal to create InventoryLog
+            create_inventory_log(a , old_quantity,reason)
+            return Response(serializer.data)
+
+        return Response(serializer.errors)
     @swagger_auto_schema(auto_schema=None)
     def update(self, request, *args, **kwargs):
         pass
