@@ -150,3 +150,4 @@ class WarehouseInventoryView(ModelViewSet):
     @swagger_auto_schema(auto_schema=None)
     def destroy(self, request, *args, **kwargs):
         pass
+
