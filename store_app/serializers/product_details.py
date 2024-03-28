@@ -60,7 +60,35 @@ class VariantSerializer(serializers.ModelSerializer):
         return updated_data
 
 class ExtraDetailsSerializer(serializers.ModelSerializer):
+    fk_tag = serializers.PrimaryKeyRelatedField(queryset=Tag.objects.all(), many=True, required=False)
+
+    def to_representation(self, instance):
+
+        representation = super().to_representation(instance)
+        representation['fk_tag'] = [{'id': tag.id, 'name': tag.name} for tag in instance.fk_tag.all()]
+        return representation
     class Meta:
         model = ExtraDetails
         fields = '__all__'
 
+    def create(self, validated_data):
+        fk_tag_data = validated_data.pop('fk_tag',[])
+
+        extra_detail = ExtraDetails.objects.create(**validated_data)
+
+        extra_detail.fk_tag.set(fk_tag_data)
+
+        return extra_detail
+
+    def partial_update(self, instance, validated_data):
+
+        fk_tag_data = validated_data.pop('fk_tag',[])
+
+        instance.fk_tag.set(fk_tag_data)
+        instance.name = validated_data.get('name', instance.name)
+        instance.value = validated_data.get('value', instance.value)
+        instance.unit = validated_data.get('unit', instance.unit)
+        instance.save()
+
+        updated_extra_details = ExtraDetails.objects.get(pk=instance.pk)
+        return updated_extra_details

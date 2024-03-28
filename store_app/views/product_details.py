@@ -4,8 +4,8 @@ from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.response import Response
 
-from store_app.models import Variant, VariantImage
-from store_app.serializers.product_details import VariantSerializer, VariantImageSerializer
+from store_app.models import Variant, VariantImage, ExtraDetails
+from store_app.serializers.product_details import VariantSerializer, VariantImageSerializer, ExtraDetailsSerializer
 
 
 class VariantViewSet(viewsets.ModelViewSet):
@@ -65,3 +65,28 @@ class VariantImageViewSet(viewsets.ModelViewSet):
 
     def partial_update(self, request, *args, **kwargs):
         pass
+
+
+class ExtraDetailsViewSet(viewsets.ModelViewSet):
+    queryset = ExtraDetails.objects.all()
+    serializer_class = ExtraDetailsSerializer
+
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = ExtraDetailsSerializer(instance , data=request.data , partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def destroy(self, request, *args, **kwargs):
+        return Response({"message": "Extra detail deleted successfully"})
+    def update(self, request, *args, **kwargs):
+        pass
+
+    def  list(self, request, *args, **kwargs):
+        pass
+
+    def retrieve(self, request, *args, **kwargs):
+        pass
+

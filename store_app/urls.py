@@ -11,7 +11,7 @@ from rest_framework import routers, permissions
 
 from store_app.views.customer import CustomerView
 from store_app.views.product import ProductViewSet, ProductImageViewSet
-from store_app.views.product_details import VariantViewSet, VariantImageViewSet
+from store_app.views.product_details import VariantViewSet, VariantImageViewSet, ExtraDetailsViewSet
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -29,6 +29,7 @@ router.register(r'product', ProductViewSet, basename='product')
 router.register(r'product_image', ProductImageViewSet, basename='product_image')
 router.register(r'product_variant', VariantViewSet, basename='product_variant')
 router.register(r'product_variant_image', VariantImageViewSet, basename='product_variant_image')
+router.register(r'product_extra_details', ExtraDetailsViewSet, basename='product_extra_details')
 
 
 urlpatterns = [
