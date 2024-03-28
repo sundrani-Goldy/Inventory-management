@@ -82,3 +82,4 @@ def create_or_update_inventory(instance):
     inventory.save()
 
     print("DEBUG: Inventory created or updated -", inventory)
+

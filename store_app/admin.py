@@ -29,6 +29,6 @@ class CustomInventoryLog(admin.ModelAdmin):
     def display_fk_tag(self, obj):
         return ', '.join(tag.name for tag in obj.fk_tag.all())  # Assuming there's a 'name' field in the Tag model
 
-# Register the custom admin class with the InventoryLog model
 admin.site.register(InventoryLog, CustomInventoryLog)
 admin.site.register(Inventory)
+
