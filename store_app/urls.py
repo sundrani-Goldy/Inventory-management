@@ -19,6 +19,7 @@ from store_app.views.product_details import VariantViewSet, VariantImageViewSet
 
 from store_app.views.product import ProductViewSet
 from store_app.views.warehouse import WarehouseView,WarehouseInventoryView
+from store_app.views.inventory import InventoryView
 
 
 schema_view = get_schema_view(
@@ -36,6 +37,7 @@ router.register(r'customer',CustomerView,basename='customer')
 router.register(r'product',ProductViewSet,basename='product')
 router.register(r'warehouse',WarehouseView,basename='warehouse')
 router.register(r'warehouse-inventory',WarehouseInventoryView,basename='warehouse-inventory')
+router.register(r'inventory',InventoryView,basename='inventory')
 
 router.register(r'product_image', ProductImageViewSet, basename='product_image')
 router.register(r'product_variant', VariantViewSet, basename='product_variant')

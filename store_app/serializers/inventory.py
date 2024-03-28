@@ -7,6 +7,7 @@ from django.db import transaction
 
 from store_app.serializers import product,tag,warehouse
 
+from store_app.serializers import product,tag,warehouse
 class InventorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Inventory
