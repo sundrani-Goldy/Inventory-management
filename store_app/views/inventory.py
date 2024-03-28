@@ -1,5 +1,30 @@
 from store_app.models.inventory_and_warehouse.inventory import InventoryLog
 from store_app.models.inventory_and_warehouse.warehouse import WarehouseInventory
+from django.db.models import Sum
+from rest_framework.viewsets import ModelViewSet
+from store_app.serializers.inventory import InventorySerializer
+from rest_framework.permissions import IsAdminUser
+from rest_framework.authentication import TokenAuthentication
+from drf_yasg.utils import swagger_auto_schema
+from store_app.models.inventory_and_warehouse.inventory import Inventory
+class InventoryView(ModelViewSet):
+    serializer_class = InventorySerializer
+    queryset = Inventory.objects.all()
+    permission_classes = [IsAdminUser]
+    authentication_classes = [TokenAuthentication]
+    @swagger_auto_schema(auto_schema=None)
+    def update(self, request, *args, **kwargs):
+        pass
+    @swagger_auto_schema(auto_schema=None)
+    def create(self, request, *args, **kwargs):
+        pass
+    @swagger_auto_schema(auto_schema=None)
+    def partial_update(self, request, *args, **kwargs):
+        pass
+    @swagger_auto_schema(auto_schema=None)
+    def destroy(self, request, *args, **kwargs):
+        pass
+    
 
 def create_inventory_log(instance,old_quantity,reason):
     tags = instance.fk_tag.all()
