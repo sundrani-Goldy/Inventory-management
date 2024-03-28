@@ -3,6 +3,7 @@ from store_app.models.inventory_and_warehouse.warehouse import Warehouse
 from store_app.models.product import Product
 from store_app.models.tag import Tag
 from store_app.models.tax_and_discount import Discount, Tax
+from django.db import models
 
 
 class OrderDetail(models.Model):
