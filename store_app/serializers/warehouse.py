@@ -5,7 +5,7 @@ from store_app.serializers.product_details import *
 from store_app.serializers.product import *
 
 from master_app.models import NewUser
-
+from store_app.models.inventory_and_warehouse.inventory import InventoryLog
 
 class NewUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -44,11 +44,11 @@ class WarehouseInventorySerializer(serializers.ModelSerializer):
     class Meta:
         model = WarehouseInventory
         fields = '__all__'
-    
+
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation['fk_product'] = OtherDetailSerializer(instance.fk_product).data
-        representation['fk_warehouse'] = OtherDetailSerializer(instance.fk_warehouse).data
-        representation['fk_tag'] = TagSerializer(instance.fk_tag.all(), many=True).data
+        representation['fk_tag'] = OtherDetailSerializer(instance.fk_tag.all(), many=True).data
+        representation['fk_warehouse'] = WarehouseSerializer(instance.fk_warehouse).data
         representation['updated_by'] = NewUserSerializer(instance.updated_by).data
+
         return representation
