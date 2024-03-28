@@ -29,7 +29,6 @@ class InventoryLog(models.Model):
     fk_product = models.ForeignKey(Product,verbose_name='Log of inventory product',on_delete=models.DO_NOTHING)
     updated_by = models.ForeignKey(NewUser,verbose_name='Updated by User',on_delete=models.DO_NOTHING)
     fk_warehouse = models.ForeignKey(Warehouse,verbose_name='Log of warehouse',on_delete=models.DO_NOTHING)
-
     fk_tag = models.ManyToManyField(Tag)
     product_name = models.CharField(max_length=200)
     username = models.CharField(max_length=200)
@@ -41,7 +40,7 @@ class InventoryLog(models.Model):
     total_quantity = models.IntegerField(default=0)
     sold_quantity = models.IntegerField(default=0)
     damage_quantity = models.IntegerField(default=0)
-    on_hand= models.IntegerField(default=0)
+    on_hand = models.IntegerField(default=0)
     adjusted_qty = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     

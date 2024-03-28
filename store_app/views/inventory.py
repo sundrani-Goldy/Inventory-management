@@ -24,6 +24,8 @@ from rest_framework.exceptions import ValidationError
 from store_app.models.product import Product
 from store_app.models.inventory_and_warehouse.warehouse import Warehouse
 from store_app.models.product_detail import Tag
+from store_app.models.inventory_and_warehouse.inventory import InventoryLog
+from store_app.models.inventory_and_warehouse.warehouse import WarehouseInventory
 class InventoryView(ModelViewSet):
     serializer_class = InventorySerializer
     queryset = Inventory.objects.all()
@@ -42,6 +44,7 @@ class InventoryView(ModelViewSet):
     def destroy(self, request, *args, **kwargs):
         pass
     
+
 
 def create_inventory_log(instance,old_quantity,reason):
     tags = instance.fk_tag.all()

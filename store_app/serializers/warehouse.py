@@ -55,11 +55,9 @@ class WarehouseInventorySerializer(serializers.ModelSerializer):
         model = WarehouseInventory
         fields = '__all__'
 
-    
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation['fk_product'] = OtherDetailSerializer(instance.fk_product).data
-        representation['fk_warehouse'] = OtherDetailSerializer(instance.fk_warehouse).data
-        representation['fk_tag'] = TagSerializer(instance.fk_tag.all(), many=True).data
+        representation['fk_tag'] = OtherDetailSerializer(instance.fk_tag.all(), many=True).data
+        representation['fk_warehouse'] = WarehouseSerializer(instance.fk_warehouse).data
         representation['updated_by'] = NewUserSerializer(instance.updated_by).data
         return representation

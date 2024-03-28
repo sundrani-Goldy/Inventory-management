@@ -24,11 +24,8 @@ from store_app.views.inventory import create_inventory_log,create_or_update_inve
 from store_app.models.product_detail import Tag
 from store_app.serializers.inventory import InventorySerializer,InventoryLogSerializer
 from store_app.models.inventory_and_warehouse.inventory import Inventory,InventoryLog
-from rest_framework.exceptions import ValidationError
 from django.db.models.signals import post_save
-from django.dispatch import receiver
-from django.db import transaction
-
+from store_app.views.inventory import create_inventory_log
 class WarehouseView(ModelViewSet):
     serializer_class = WarehouseSerializer
     queryset = Warehouse.objects.all()
@@ -72,14 +69,14 @@ class WarehouseInventoryView(ModelViewSet):
     queryset = WarehouseInventory.objects.all()
     permission_classes = [IsAdminUser]
     authentication_classes = [TokenAuthentication]
-
+    
     def create_warehouse_inventory_from_product(product_instance, user):
         warehouses = Warehouse.objects.all()
         for warehouse in warehouses:
             warehouse_inventory = WarehouseInventory.objects.create(
                 fk_product=product_instance,
                 fk_warehouse=warehouse,
-                updated_by=user,                  
+                updated_by=user,  
                 available_quantity=0,
                 allotted_quantity=0,
                 total_quantity=0,
@@ -90,7 +87,6 @@ class WarehouseInventoryView(ModelViewSet):
             # Adding related tags to WarehouseInventory
             for tag in product_instance.fk_tag.all():
                 warehouse_inventory.fk_tag.add(tag)
-
 
     def create_warehouse_inventory_from_warehouse(warehouse_instance,user):
         products = Product.objects.all()
@@ -142,7 +138,6 @@ class WarehouseInventoryView(ModelViewSet):
 
         return Response(serializer.errors)
 
-    
     @swagger_auto_schema(auto_schema=None)
     def update(self, request, *args, **kwargs):
         pass
