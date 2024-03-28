@@ -5,6 +5,15 @@ from store_app.serializers.product_details import *
 from store_app.serializers.product import *
 from store_app.serializers.tag import TagSerializer
 
+from store_app.models import Warehouse, WarehouseInventory, OtherDetail
+from store_app.models.product_detail import Tag
+from store_app.models.inventory_and_warehouse.warehouse import Warehouse,WarehouseInventory,OtherDetail
+from store_app.serializers.product_details import *
+from store_app.serializers.product import *
+from store_app.serializers.tag import TagSerializer
+
+from master_app.models import NewUser
+
 from master_app.models import NewUser
 from store_app.models.inventory_and_warehouse.inventory import InventoryLog
 
@@ -51,5 +60,4 @@ class WarehouseInventorySerializer(serializers.ModelSerializer):
         representation['fk_tag'] = OtherDetailSerializer(instance.fk_tag.all(), many=True).data
         representation['fk_warehouse'] = WarehouseSerializer(instance.fk_warehouse).data
         representation['updated_by'] = NewUserSerializer(instance.updated_by).data
-
         return representation

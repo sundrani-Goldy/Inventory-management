@@ -1,4 +1,4 @@
-from store_app.models.inventory_and_warehouse.inventory import InventoryLog,Inventory
+from store_app.models.inventory_and_warehouse.inventory import InventoryLog
 from store_app.models.inventory_and_warehouse.warehouse import WarehouseInventory
 from django.db.models import Sum
 from rest_framework.viewsets import ModelViewSet
@@ -6,6 +6,7 @@ from store_app.serializers.inventory import InventorySerializer
 from rest_framework.permissions import IsAdminUser
 from rest_framework.authentication import TokenAuthentication
 from drf_yasg.utils import swagger_auto_schema
+from store_app.models.inventory_and_warehouse.inventory import Inventory
 class InventoryView(ModelViewSet):
     serializer_class = InventorySerializer
     queryset = Inventory.objects.all()
@@ -55,7 +56,6 @@ def create_inventory_log(instance,old_quantity,reason):
     # Instead of updating directly, add tags one by one
     for tag in tags:
         inventory_log.fk_tag.add(tag)
-
 
 def create_or_update_inventory(instance):
     product = instance.fk_product

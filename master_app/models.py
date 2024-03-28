@@ -8,6 +8,9 @@ class Store(TenantMixin):
     created_on = models.DateField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
 
+    auto_create_schema = True
+    auto_drop_schema = True
+
     def save(self, *args, **kwargs):
         super(Store, self).save(*args, **kwargs)
 
@@ -27,6 +30,8 @@ class Store(TenantMixin):
                 public_domain = Domain.objects.get(tenant=school)
                 domain.domain = self.schema_name + "." + public_domain.domain
                 domain.save()
+
+
 class Domain(DomainMixin):
     pass
 
