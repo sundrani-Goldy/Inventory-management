@@ -1,12 +1,15 @@
+from django.db.models import Sum
+from drf_yasg.utils import swagger_auto_schema
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAdminUser
+from rest_framework.viewsets import ModelViewSet
+
+from store_app.models.inventory_and_warehouse.inventory import Inventory
 from store_app.models.inventory_and_warehouse.inventory import InventoryLog
 from store_app.models.inventory_and_warehouse.warehouse import WarehouseInventory
-from django.db.models import Sum
-from rest_framework.viewsets import ModelViewSet
 from store_app.serializers.inventory import InventorySerializer
-from rest_framework.permissions import IsAdminUser
-from rest_framework.authentication import TokenAuthentication
-from drf_yasg.utils import swagger_auto_schema
-from store_app.models.inventory_and_warehouse.inventory import Inventory
+
+
 class InventoryView(ModelViewSet):
     serializer_class = InventorySerializer
     queryset = Inventory.objects.all()

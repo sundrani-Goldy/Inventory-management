@@ -1,13 +1,10 @@
 
 from rest_framework import serializers
+
 from store_app.models import Inventory, InventoryLog
-from datetime import datetime
-from store_app.models.inventory_and_warehouse.warehouse import Warehouse
-from django.db import transaction
+from store_app.serializers import product
 
-from store_app.serializers import product,tag,warehouse
 
-from store_app.serializers import product,tag,warehouse
 class InventorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Inventory

@@ -10,20 +10,12 @@ from drf_yasg.views import get_schema_view
 from rest_framework import routers, permissions
 
 from store_app.views.customer import CustomerView
-from store_app.views.product import ProductViewSet
-from store_app.views.warehouse import WarehouseView,WarehouseInventoryView
 from store_app.views.inventory import InventoryView
-
-from store_app.views.product import ProductViewSet, ProductImageViewSet
-from store_app.views.product_details import VariantViewSet, VariantImageViewSet
-
-from store_app.views.product import ProductViewSet
-from store_app.views.warehouse import WarehouseView,WarehouseInventoryView
-from store_app.views.inventory import InventoryView
-
 from store_app.views.order import *
-
-
+from store_app.views.product import ProductImageViewSet
+from store_app.views.product import ProductViewSet
+from store_app.views.product_details import VariantViewSet, VariantImageViewSet
+from store_app.views.warehouse import WarehouseView, WarehouseInventoryView
 
 schema_view = get_schema_view(
     openapi.Info(

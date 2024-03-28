@@ -1,20 +1,16 @@
 import os
 
 from rest_framework import status
-from store_app.serializers.product import ProductSerializer
-from store_app.models.product import Product
-from store_app.views.warehouse import WarehouseInventoryView
 from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from store_app.models import Product, ProductImage
-from store_app.serializers.product import ProductSerializer, ProductImageSerializer
-
-from store_app.serializers.product import ProductSerializer
+from store_app.models import ProductImage
 from store_app.models.product import Product
-from store_app.views.warehouse import WarehouseInventoryView
-from rest_framework.permissions import IsAdminUser,IsAuthenticated
-from rest_framework.authentication import TokenAuthentication
+from store_app.serializers.product import ProductImageSerializer
+from store_app.serializers.product import ProductSerializer
+
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()

@@ -1,17 +1,11 @@
-from django.shortcuts import render
-
 # Create your views here.
 from rest_framework import viewsets
-from rest_framework.response import Response
-from drf_yasg.utils import swagger_auto_schema
-from rest_framework.decorators import action
-from rest_framework import status
-from drf_yasg import openapi
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated,IsAdminUser
-from store_app.serializers.order import *
-from store_app.models.order import *
+from rest_framework.permissions import IsAdminUser
+from rest_framework.response import Response
 
+from store_app.models.order import *
+from store_app.serializers.order import *
 
 
 class OrderView(viewsets.ModelViewSet):

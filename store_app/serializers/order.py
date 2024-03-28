@@ -1,10 +1,12 @@
 from rest_framework import serializers
+
+from store_app.models import Customer
 from store_app.models import Order, OrderDetail, Warehouse, Discount, Tax, Tag
 from store_app.serializers.customer import CustomerSerializer
-from store_app.models import Customer
-from store_app.serializers.tax_and_discount import DiscountSerializer, TaxSerializer
 from store_app.serializers.tag import TagSerializer
+from store_app.serializers.tax_and_discount import DiscountSerializer, TaxSerializer
 from store_app.serializers.warehouse import WarehouseSerializer
+
 
 class OrderDetailSerializer(serializers.ModelSerializer):
     class Meta:
