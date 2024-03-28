@@ -9,7 +9,7 @@ from store_app.models.product import Product
 class OrderDetail(models.Model):
     fk_product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
     quantity = models.IntegerField(default=0)
-    discount = models.DecimalField(max_digits=10, decimal_places=2 , default=0)
+    fk_discount = models.ForeignKey(Discount, on_delete=models.DO_NOTHING , null=True, blank=True , verbose_name="discount")
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
 
@@ -36,4 +36,4 @@ class Order(models.Model):
     
     class Meta:
         db_table = 'order'
-        verbose_name_plural = 'orders'
+        verbose_name_plural = 'orders'  

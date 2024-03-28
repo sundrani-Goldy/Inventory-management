@@ -20,17 +20,8 @@ class OrderView(viewsets.ModelViewSet):
     permission_classes = [IsAdminUser]
     authentication_classes = [TokenAuthentication]
 
-    # def create(self, request, *args, **kwargs):
-    #     data = request.data
-    #     order_details = OrderDetailSerializer(data=data, many=True)
-    #     if order_details.is_valid():
-    #         fk_order_detail = order_details.save()
-    #         data['fk_order_detail'] = fk_order_detail
-    #         order = OrderSerializer(data=data)
-    #         if order.is_valid():
-    #             order.save()
-    #             return Response(order.data, status=status.HTTP_201_CREATED)
-    #         else:
-    #             return Response(order.errors, status=status.HTTP_400_BAD_REQUEST)
-    #     else:
-    #         return Response(order_details.errors, status=status.HTTP_400_BAD_REQUEST)
+    def list(self, request, *args, **kwargs):
+        serializer_class = OrderSerializerList
+        queryset = Order.objects.all()
+        serializer = serializer_class(queryset, many=True)
+        return Response(serializer.data)
