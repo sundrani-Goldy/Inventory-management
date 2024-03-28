@@ -15,7 +15,7 @@ class Inventory(models.Model):
     total_value = models.IntegerField(default=0)
     on_hand= models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField()
+    updated_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.fk_product.name
@@ -27,18 +27,24 @@ class Inventory(models.Model):
 
 
 class InventoryLog(models.Model):
-    fk_product = models.ForeignKey(Product,verbose_name='Log of inventory product',on_delete=models.CASCADE)
-    updated_by = models.ForeignKey(NewUser,verbose_name='Updated by User',on_delete=models.CASCADE)
-    fk_warehouse = models.ForeignKey(Warehouse,verbose_name='Log of warehouse',on_delete=models.CASCADE)
+    fk_product = models.ForeignKey(Product,verbose_name='Log of inventory product',on_delete=models.DO_NOTHING)
+    updated_by = models.ForeignKey(NewUser,verbose_name='Updated by User',on_delete=models.DO_NOTHING)
+    fk_warehouse = models.ForeignKey(Warehouse,verbose_name='Log of warehouse',on_delete=models.DO_NOTHING)
     fk_tag = models.ManyToManyField(Tag)
-    reason = models.CharField(max_length=200)
+    product_name = models.CharField(max_length=200)
+    username = models.CharField(max_length=200)
+    warehouse_name = models.CharField(max_length=200)
+    tag_name = models.CharField(max_length=200)
+    reason = models.CharField(max_length=200,choices=[('Coorelation',"Coolreation"),('Count',"Count"),('Recieved',"Recieved"),('Damaged',"Damaged"),('Return Restock',"Return Restock"),('Theft or loss',"Theft or loss"),('Promotion or donation',"Promotion or donation")]) #if needed to add default just add  default='Coorelation'
     available_quantity = models.IntegerField(default=0)
     allotted_quantity = models.IntegerField(default=0)
     total_quantity = models.IntegerField(default=0)
     sold_quantity=models.IntegerField(default=0)
     damage_quantity = models.IntegerField(default=0)
     on_hand= models.IntegerField(default=0)
+    adjusted_qty = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
+    
 
     def __str__(self):
         return self.fk_product.name

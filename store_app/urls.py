@@ -9,8 +9,9 @@ from drf_yasg.views import get_schema_view
 from rest_framework import routers, permissions
 from drf_yasg import openapi
 from store_app.views.customer import CustomerView
-from store_app.views.inventory import *
-from store_app.views.warehouse import *
+from store_app.views.product import ProductViewSet
+from store_app.views.warehouse import WarehouseView,WarehouseInventoryView
+from store_app.views.inventory import InventoryView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -24,6 +25,9 @@ schema_view = get_schema_view(
 )
 router = routers.DefaultRouter()
 router.register(r'customer',CustomerView,basename='customer')
+router.register(r'product',ProductViewSet,basename='product')
+router.register(r'warehouse',WarehouseView,basename='warehouse')
+router.register(r'warehouse-inventory',WarehouseInventoryView,basename='warehouse-inventory')
 router.register(r'inventory',InventoryView,basename='inventory')
 router.register(r'inventorylog',InventoryLogView,basename='inventorylog')
 router.register(r'warehouse',WarehouseView,basename='warehouse')

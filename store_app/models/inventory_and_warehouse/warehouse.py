@@ -17,8 +17,8 @@ class OtherDetail(models.Model):
 
 class Warehouse(models.Model):
     fk_user = models.ForeignKey(NewUser,verbose_name='Warehouse User',on_delete=models.CASCADE)
-    fk_tag = models.ManyToManyField(Tag,null=True,blank=True)
-    fk_other_detail = models.ManyToManyField(OtherDetail,verbose_name='Other Details')
+    fk_tag = models.ManyToManyField(Tag)
+    fk_other_detail = models.ManyToManyField(OtherDetail,verbose_name='Other Details',null=True,blank=True)
     name = models.CharField(max_length=255)
     address = models.TextField()
     contact = models.CharField(max_length=15)
@@ -47,11 +47,12 @@ class WarehouseInventory(models.Model):
     sold_quantity=models.IntegerField(default=0)
     product_total_valuation = models.BigIntegerField(default=0)
     on_hand= models.IntegerField(default=0)
+    damage_quantity = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField()
+    updated_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.fk_warehouse.name
+        return f'Product is {self.fk_product.name} & it is in  Warehouse {self.fk_warehouse.name } ' 
     
     class Meta:
         db_table = 'warehouse_inventory'
