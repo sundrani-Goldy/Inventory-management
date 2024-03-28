@@ -42,7 +42,7 @@ router.register(r'inventory',InventoryView,basename='inventory')
 router.register(r'product_image', ProductImageViewSet, basename='product_image')
 router.register(r'product_variant', VariantViewSet, basename='product_variant')
 router.register(r'product_variant_image', VariantImageViewSet, basename='product_variant_image')
-router.register(r'inventory-log',InventoryLogView,basename='inventory-log')
+
 
 
 urlpatterns = [

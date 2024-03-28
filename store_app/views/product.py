@@ -13,6 +13,8 @@ from store_app.serializers.product import ProductSerializer, ProductImageSeriali
 from store_app.serializers.product import ProductSerializer
 from store_app.models.product import Product
 from store_app.views.warehouse import WarehouseInventoryView
+from rest_framework.permissions import IsAdminUser,IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
