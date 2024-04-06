@@ -11,6 +11,8 @@ from drf_yasg import openapi
 from rest_auth.views import LogoutView, PasswordChangeView, PasswordResetConfirmView, PasswordResetView
 from rest_auth.registration.views import RegisterView
 
+from master_app.views import StoreView
+
 schema_view = get_schema_view(
     openapi.Info(
         title="Inventory Admin API",
@@ -22,7 +24,7 @@ schema_view = get_schema_view(
     url=os.environ.get("SWAGGER_API_URL")
 )
 router = routers.DefaultRouter()
-
+router.register('store',StoreView,basename='store')
 
 urlpatterns = [
     re_path(
