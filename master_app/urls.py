@@ -10,7 +10,6 @@ from rest_framework import routers, permissions
 from drf_yasg import openapi
 from rest_auth.views import LogoutView, PasswordChangeView, PasswordResetConfirmView, PasswordResetView
 from rest_auth.registration.views import RegisterView
-
 from master_app.views import StoreView
 
 schema_view = get_schema_view(
@@ -25,6 +24,7 @@ schema_view = get_schema_view(
 )
 router = routers.DefaultRouter()
 router.register('store',StoreView,basename='store')
+
 
 urlpatterns = [
     re_path(
